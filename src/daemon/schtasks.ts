@@ -78,6 +78,10 @@ export async function readScheduledTaskCommand(
       if (line.startsWith("@echo")) {
         continue;
       }
+      // Skip chcp (code page) commands - they're for UTF-8 handling, not actual commands
+      if (lower.startsWith("chcp ")) {
+        continue;
+      }
       if (lower.startsWith("rem ")) {
         continue;
       }
@@ -185,7 +189,8 @@ function buildTaskScript({
   workingDirectory,
   environment,
 }: GatewayServiceRenderArgs): string {
-  const lines: string[] = ["@echo off"];
+  // Set UTF-8 code page to handle paths with non-ASCII characters (e.g., Chinese usernames)
+  const lines: string[] = ["@echo off", "chcp 65001 >nul"];
   const trimmedDescription = description?.trim();
   if (trimmedDescription) {
     assertNoCmdLineBreak(trimmedDescription, "Task description");
