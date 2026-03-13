@@ -162,6 +162,7 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
+          "chcp 65001 >nul",
           "rem OpenClaw Gateway",
           "cd /d C:\\Projects\\openclaw",
           "set NODE_ENV=production",
@@ -188,6 +189,7 @@ describe("readScheduledTaskCommand", () => {
       {
         scriptLines: [
           "@echo off",
+          "chcp 65001 >nul",
           '"C:\\Program Files\\nodejs\\node.exe" C:\\Users\\test\\AppData\\Roaming\\npm\\node_modules\\openclaw\\dist\\index.js gateway --port 18789',
         ],
       },
